@@ -12,7 +12,7 @@ function Navbar() {
         }
     }, [session])
 
-    console.log(user)
+    // console.log(user)
 
     return (
         <nav className='container mx-auto flex justify-between p-3'>
