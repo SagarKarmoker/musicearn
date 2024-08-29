@@ -1,8 +1,18 @@
 'use client'; // because of ReactJS client side code
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react';
 
 function Navbar() {
     const session = useSession();
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        if (session.data?.user) {
+            setUser(session.data.user)
+        }
+    }, [session])
+
+    console.log(user)
 
     return (
         <nav className='container mx-auto flex justify-between p-3'>
