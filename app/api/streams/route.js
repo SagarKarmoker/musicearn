@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { prismaCilent } from "../../lib/db"
 import { StreamType } from "@prisma/client";
+import youtubesearchapi from "youtube-search-api";
+
 const Youtube_Regex = new RegExp(
     "^(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+$"
 )
@@ -34,6 +36,11 @@ export async function POST(req) {
                 { status: 401 }
             );
         }
+
+        const videoDetails = await youtubesearchapi.GetVideoDetails(extractedId)
+        console.log(videoDetails.title)
+        console.log(videoDetails.thumbnail.thumbnails[0].url)
+        console.log(videoDetails.thumbnail.thumbnails[thumbnails.size].url)
     
         // Create the stream in the database
         const stream = await prismaCilent.stream.create({

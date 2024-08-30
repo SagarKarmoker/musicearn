@@ -22,15 +22,18 @@ model User {
 }
 
 model Stream {
-  id          String     @id @default(uuid())
-  type        StreamType
-  active      Boolean    @default(true)
-  url         String
-  extractedId String
-  upvotes     Upvote[] // one stream can have multiple upvotes
-  userId      String
+  id             String     @id @default(uuid())
+  type           StreamType
+  active         Boolean    @default(true)
+  url            String
+  extractedId    String
+  title          String     @default("")
+  thumbnailSmall String     @default("")
+  thumbnailBig   String     @default("")
+  upvotes        Upvote[] // one stream can have multiple upvotes
+  userId         String
   // 1 => * relation foreign key id 
-  user        User       @relation(fields: [userId], references: [id])
+  user           User       @relation(fields: [userId], references: [id])
 }
 
 model Upvote {
