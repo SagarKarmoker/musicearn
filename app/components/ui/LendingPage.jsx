@@ -5,6 +5,7 @@ import { Button } from "../ui/button"
 import { Input } from "../ui//input"
 import { Music, Headphones, Coins, ArrowRight, Menu } from "lucide-react"
 import Link from "next/link"
+import Footer from "./Footer"
 
 export default function LendingPage() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -41,14 +42,19 @@ export default function LendingPage() {
                         <div>
                             {
                                 session.data?.user ? (
-                                    <Button  className='bg-green-500 p-2 rounded-full font-bold'
-                                        onClick={() => signOut()}
-                                    >
-                                        Logout
-                                    </Button >
+                                    <div className='flex justify-center'>
+                                        <Link className="bg-green-500 p-2 rounded-lg font-bold" href="/profile">
+                                            Profile
+                                        </Link>
+                                        <Button className='bg-green-500 p-2 rounded-full font-bold ml-2'
+                                            onClick={() => signOut()}
+                                        >
+                                            Logout
+                                        </Button >
+                                    </div>
                                 ) : (
                                     <>
-                                        <Button  className='bg-green-500 p-2 rounded-full font-bold'
+                                        <Button className='bg-green-500 p-2 rounded-full font-bold'
                                             onClick={() => signIn()}
                                         >
                                             Login With Google
@@ -81,14 +87,14 @@ export default function LendingPage() {
                         <div>
                             {
                                 session.data?.user ? (
-                                    <Button  className='bg-green-500 p-2 rounded-full font-bold'
+                                    <Button className='bg-green-500 p-2 rounded-full font-bold'
                                         onClick={() => signOut()}
                                     >
                                         Logout
                                     </Button >
                                 ) : (
                                     <>
-                                        <Button  className='bg-green-500 p-2 rounded-full font-bold'
+                                        <Button className='bg-green-500 p-2 rounded-full font-bold'
                                             onClick={() => signIn()}
                                         >
                                             Login With Google
@@ -194,17 +200,7 @@ export default function LendingPage() {
                         </div>
                     </section>
                 </main>
-                <footer className="container mx-auto flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t border-gray-700">
-                    <p className="text-xs text-gray-400">© 2023 Web3Tunes. All rights reserved.</p>
-                    <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-                        <Link className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-pink-500 transition-colors" href="#">
-                            Terms of Service
-                        </Link>
-                        <Link className="text-xs hover:underline underline-offset-4 text-gray-400 hover:text-pink-500 transition-colors" href="#">
-                            Privacy
-                        </Link>
-                    </nav>
-                </footer>
+                <Footer />
             </div>
         </div>
     )
