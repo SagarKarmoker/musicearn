@@ -38,9 +38,8 @@ export async function POST(req) {
         }
 
         const videoDetails = await youtubesearchapi.GetVideoDetails(extractedId)
-        console.log(videoDetails.title)
-        console.log(videoDetails.thumbnail.thumbnails[0].url)
-        console.log(videoDetails.thumbnail.thumbnails[thumbnails.size].url)
+        const thumbnails = videoDetails.thumbnail.thumbnails;
+        thumbnails.sort((a, b)=> a.width - b.width ? -1 : 1)
     
         // Create the stream in the database
         const stream = await prismaCilent.stream.create({
@@ -48,7 +47,10 @@ export async function POST(req) {
                 userId: data.creatorId,
                 url: data.url,
                 extractedId,
-                type: StreamType.Youtube
+                type: StreamType.Youtube,
+                title: videoDetails.title || "NO_TITLE",
+                thumbnailSmall:  thumbnails.length > 1 ? thumbnails[thumbnails.length - 2].url :  thumbnails[thumbnails.length - 1].url,
+                thumbnailBig: thumbnails[thumbnails.length - 1].url || "NO_THUMBNAIL",
             }
         });
     
